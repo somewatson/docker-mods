@@ -14,7 +14,7 @@ env:
   ENDPOINT: "somewatson/mods" #don't modify -- modified
   BRANCH: "code-server-bat-sw" #added
   BASEIMAGE: "code-server" #replaced
-  MODNAME: "bat" #replaced
+  MODNAME: "bat-sw" #replaced
   MOD_VERSION: ${{ inputs.mod_version }} #don't modify
   MULTI_ARCH: "false" #set to false if not needed
 
