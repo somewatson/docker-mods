@@ -10,10 +10,10 @@ on:
         required: false
 
 env:
-  GITHUB_REPO: "linuxserver/docker-mods" #don't modify
-  ENDPOINT: "linuxserver/mods" #don't modify
+  GITHUB_REPO: "somewatson/docker-mods" #don't modify -- modified
+  ENDPOINT: "somewatson/mods" #don't modify -- modified
   BASEIMAGE: "code-server" #replaced
-  MODNAME: "bat" #replaced
+  MODNAME: "rbenv-sw" #replaced
   MOD_VERSION: ${{ inputs.mod_version }} #don't modify
   MULTI_ARCH: "false" #set to false if not needed
 

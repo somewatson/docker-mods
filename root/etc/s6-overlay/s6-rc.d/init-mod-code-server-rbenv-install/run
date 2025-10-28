@@ -1,0 +1,37 @@
+#!/usr/bin/with-contenv bash
+
+# This is an install script that is designed to run after init-mods-package-install
+# so it can take advantage of packages installed
+# init-mods-end depends on this script so that later init and services wait until this script exits
+
+if [ -d ~/.rbenv ]; then
+    echo 'rbenv already cloned, skipping'
+else
+    echo 'Cloning rbenv repo'
+    git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+fi
+
+# Needs the - because it's being run in a script
+~/.rbenv/bin/rbenv init -
+
+if ! command -v zsh >/dev/null 2>&1; then
+    echo "**** zsh not installed, skipping shell completions setup ****"
+else
+    if [ -f ~/.zshrc ]; then
+        if ! grep -q 'FPATH=~/.rbenv/completions:"$FPATH"' ~/.zshrc; then
+            echo 'Adding shell completions to zsh for rbenv'
+            
+            echo 'FPATH=~/.rbenv/completions:"$FPATH"' >> ~/.zshrc
+            echo 'autoload -U compinit' >> ~/.zshrc
+            echo 'compinit' >> ~/.zshrc
+        else
+            echo 'rbenv shell completions already exist in zsh, skipping'
+        fi
+    else
+        echo '~/.zshrc not found, creating one with the shell completions'
+
+        echo 'FPATH=~/.rbenv/completions:"$FPATH"' >> ~/.zshrc
+        echo 'autoload -U compinit' >> ~/.zshrc
+        echo 'compinit' >> ~/.zshrc
+    fi
+fi
