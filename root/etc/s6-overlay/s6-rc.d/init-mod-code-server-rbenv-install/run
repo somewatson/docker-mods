@@ -11,18 +11,23 @@ else
     git clone https://github.com/rbenv/rbenv.git ~/.rbenv
 fi
 
-# This will add `eval "$(~/.rbenv/bin/rbenv init - --no-rehash zsh)"` to the ~/.zshrc file
-echo 'Initializing rbenv'
+# This will add `eval "$(~/.rbenv/bin/rbenv init - --no-rehash bash)"` to the ~/.bashrc or ~/.bash_profile file
+echo 'Initializing rbenv for bash'
 ~/.rbenv/bin/rbenv init
 
 if ! command -v zsh >/dev/null 2>&1; then
     echo "**** zsh not installed, skipping shell completions setup ****"
 else
+    # This will add `eval "$(~/.rbenv/bin/rbenv init - --no-rehash zsh)"` to the ~/.zshrc file
+    echo 'Initializing rbenv for zsh'
+    ~/.rbenv/bin/rbenv init zsh
+
     if [ -f ~/.zshrc ]; then
         if ! grep -q 'FPATH=~/.rbenv/completions:"$FPATH"' ~/.zshrc; then
             echo 'Adding shell completions to zsh for rbenv'
             
-            echo '\n# For rbenv shell completions' >> ~/.zshrc
+            echo '' >> ~/.zshrc
+            echo '# For rbenv shell completions' >> ~/.zshrc
             echo 'FPATH=~/.rbenv/completions:"$FPATH"' >> ~/.zshrc
             echo 'autoload -U compinit' >> ~/.zshrc
             echo 'compinit' >> ~/.zshrc
@@ -32,7 +37,8 @@ else
     else
         echo '~/.zshrc not found, creating one with the shell completions'
 
-        echo '\n# For rbenv shell completions' >> ~/.zshrc
+        echo '' >> ~/.zshrc
+        echo '# For rbenv shell completions' >> ~/.zshrc
         echo 'FPATH=~/.rbenv/completions:"$FPATH"' >> ~/.zshrc
         echo 'autoload -U compinit' >> ~/.zshrc
         echo 'compinit' >> ~/.zshrc
