@@ -11,6 +11,16 @@ else
     git clone https://github.com/rbenv/rbenv.git ~/.rbenv
 fi
 
+if [ -d ~/.rbenv/plugins/ruby-build ]; then
+    echo 'ruby-build plugin already cloned, skipping'
+
+    echo 'Upgrading ruby-build plugin'
+    git -C ~/.rbenv/plugins/ruby-build pull
+else
+    echo 'Cloning ruby-build plugin repo'
+    git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+fi
+
 # This will add `eval "$(~/.rbenv/bin/rbenv init - --no-rehash bash)"` to the ~/.bashrc or ~/.bash_profile file
 echo 'Initializing rbenv for bash'
 ~/.rbenv/bin/rbenv init
