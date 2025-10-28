@@ -54,3 +54,7 @@ else
         echo 'compinit' >> ~/.zshrc
     fi
 fi
+
+echo 'Setting permissions for ~/.rbenv'
+lsiown -R abc:abc \
+    /config/.rbenv
